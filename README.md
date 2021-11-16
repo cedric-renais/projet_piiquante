@@ -1,1 +1,1 @@
-Construisez une API sécurisée pour une application d'avis gastronomiques
+API sécurisée pour une application d'avis gastronomiques
