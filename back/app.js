@@ -8,6 +8,10 @@ const express = require('express');
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
 //-------------//
+// Import path //
+//-------------//
+const path = require('path');
+//-------------//
 // Calling app //
 //-------------//
 const app = express();
@@ -49,9 +53,10 @@ app.use(express.json());
 //----------------//
 // Calling routes //
 //----------------//
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
-//------------//
-// Export app //
-//------------//
+//-------------//
+// Exports app //
+//-------------//
 module.exports = app;

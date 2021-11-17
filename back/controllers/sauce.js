@@ -6,8 +6,12 @@ const Sauce = require('../models/sauce');
 // Exports the logic of the POST route //
 //-------------------------------------//
 exports.createSauce = (req, res, next) => {
+  const sauceObject = JSON.parse(req.body.sauce);
   const sauce = new Sauce({
-    ...req.body, // Spread syntax
+    ...sauceObject, // Spread syntax
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${
+      req.file.filename
+    }`,
   });
   sauce
     .save()
@@ -26,10 +30,22 @@ exports.readSauce = (req, res, next) => {
 // Exports the logic of the PUT route //
 //-------------------------------------//
 exports.updateSauce = (req, res, next) => {
-  Sauce.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
+  const thingObject = req.file
+    ? {
+        ...JSON.parse(req.body.thing),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
+  Sauce.updateOne(
+    { _id: req.params.id },
+    { ...thingObject, _id: req.params.id }
+  )
     .then(() => res.status(200).json({ message: 'Modified sauce.' }))
     .catch((error) => res.status(400).json({ error }));
 };
+
 //---------------------------------------//
 // Exports the logic of the DELETE route //
 //---------------------------------------//

@@ -4,11 +4,18 @@
 //----------------//
 const express = require('express');
 const router = express.Router();
+//-------------------------//
+// Import authentification //
+//-------------------------//
+const auth = require('../middleware/auth');
 //-------------------//
 // Import controller //
 //-------------------//
 const sauceCtrl = require('../controllers/sauce');
-//--------//
+//---------------//
+// Import multer //
+//---------------//
+const multer = require('../middleware/multer');
 //  CRUD  //
 //--------//
 // Create //
@@ -16,15 +23,15 @@ const sauceCtrl = require('../controllers/sauce');
 // Update //
 // Delete //
 //--------//
-router.post('/', sauceCtrl.createSauce);
-router.get('/:id', sauceCtrl.readSauce);
-router.put('/:id', sauceCtrl.updateSauce);
-router.delete('/:id', sauceCtrl.deleteSauce);
-//----------------//
+router.post('/', auth, multer, sauceCtrl.createSauce);
+router.get('/:id', auth, multer, sauceCtrl.readSauce);
+router.put('/:id', auth, sauceCtrl.updateSauce);
+router.delete('/:id', auth, sauceCtrl.deleteSauce);
+//-----------------//
 // Read all Sauces //
+//-----------------//
+router.get('/', auth, sauceCtrl.readAllSauces);
 //----------------//
-router.get('/', sauceCtrl.readAllSauces);
-//---------------//
-// Export router //
-//---------------//
+// Exports router //
+//----------------//
 module.exports = router;

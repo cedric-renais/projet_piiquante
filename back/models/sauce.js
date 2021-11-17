@@ -2,9 +2,9 @@
 // Import mongoose //
 //-----------------//
 const mongoose = require('mongoose');
-//-----------------------------//
-// creation of the data schema //
-//-----------------------------//
+//------------------------//
+// creation of the schema //
+//------------------------//
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -12,13 +12,13 @@ const sauceSchema = mongoose.Schema({
   description: { type: String, required: true },
   mainPepper: { type: String, required: true },
   imageUrl: { type: String, required: true },
-  heat: { type: Number, required: true },
-  likes: { type: Number, required: true },
-  dislikes: { type: Number, required: true },
-  usersLiked: [{ type: String, required: true }],
-  usersDisliked: [{ type: String, required: true }],
+  heat: { type: Number },
+  likes: { type: Number },
+  dislikes: { type: Number },
+  usersLiked: [{ type: String }],
+  usersDisliked: [{ type: String }],
 });
 //--------------//
-// Export model //
+// Exports model //
 //--------------//
 module.exports = mongoose.model('Sauce', sauceSchema);
