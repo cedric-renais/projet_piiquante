@@ -16,6 +16,7 @@ const sauceCtrl = require('../controllers/sauce');
 // Import multer //
 //---------------//
 const multer = require('../middleware/multer');
+//--------//
 //  CRUD  //
 //--------//
 // Create //
@@ -31,6 +32,10 @@ router.delete('/:id', auth, sauceCtrl.deleteSauce);
 // Read all Sauces //
 //-----------------//
 router.get('/', auth, sauceCtrl.readAllSauces);
+//-----------------//
+// Like or Dislike //
+//-----------------//
+router.post('/:id/like', auth, sauceCtrl.likeDislike);
 //----------------//
 // Exports router //
 //----------------//

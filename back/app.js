@@ -2,18 +2,18 @@
 // Import Express //
 //----------------//
 const express = require('express');
+//-------------//
+// Import path //
+//-------------//
+const path = require('path');
 //----------------//
 // Import routers //
 //----------------//
 const userRoutes = require('./routes/user');
 const sauceRoutes = require('./routes/sauce');
-//-------------//
-// Import path //
-//-------------//
-const path = require('path');
-//-------------//
-// Calling app //
-//-------------//
+//-----------------//
+// Calling express //
+//-----------------//
 const app = express();
 //---------------------//
 // Import Mongoose     //
@@ -23,7 +23,10 @@ const mongoose = require('mongoose');
 mongoose
   .connect(
     'mongodb+srv://admin:Chapiteau01@cluster0.wbkwd.mongodb.net/hotTakes?retryWrites=true&w=majority',
-    { useNewUrlParser: true, useUnifiedTopology: true }
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => console.log('Successful connection to MongoDB Atlas.'))
   .catch(() => console.log('Connection to MongoDB Atlas failed.'));
