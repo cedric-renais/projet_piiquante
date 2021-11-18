@@ -2,6 +2,10 @@
 // Import model //
 //--------------//
 const Sauce = require('../models/sauce');
+//----------------------------//
+// Import file system package //
+//----------------------------//
+const fs = require('fs');
 //-------------------------------------//
 // Exports the logic of the POST route //
 //-------------------------------------//
@@ -55,11 +59,18 @@ exports.updateSauce = (req, res, next) => {
 // Exports the logic of the DELETE route //
 //---------------------------------------//
 exports.deleteSauce = (req, res, next) => {
-  Sauce.deleteOne({ _id: req.params.id })
-    .then(() =>
-      res.status(200).json({ message: 'Sauce deleted successfully.' })
-    )
-    .catch((error) => res.status(400).json({ error }));
+  Sauce.findOne({ _id: req.params.id })
+    .then((sauce) => {
+      const filename = sauce.imageUrl.split('/images/')[1];
+      fs.unlink(`images/${filename}`, () => {
+        Sauce.deleteOne({ _id: req.params.id })
+          .then(() =>
+            res.status(200).json({ message: 'Sauce deleted successfully.' })
+          )
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
 };
 //-----------------------------------------------//
 // Exports the logic of the GET all sauces route //
