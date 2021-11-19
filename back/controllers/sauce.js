@@ -18,6 +18,8 @@ exports.createSauce = (req, res, next) => {
     }`,
     likes: 0,
     dislikes: 0,
+    usersLiked: [],
+    usersDisliked: [],
   });
   sauce
     .save()
@@ -88,6 +90,7 @@ exports.readAllSauces = (req, res, next) => {
 //---------------------------------------------//
 exports.likeDislike = (req, res, next) => {
   const like = req.body.like;
+  // switch evaluates an expression and, depending on the result obtained and the associated case, executes the corresponding statements.
   switch (like) {
     case 1:
       Sauce.updateOne(

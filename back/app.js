@@ -10,7 +10,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 const helmet = require('helmet');
-app.use(helmet());
 //-------------//
 // Import path //
 //-------------//
@@ -24,6 +23,10 @@ const sauceRoutes = require('./routes/sauce');
 // Calling express //
 //-----------------//
 const app = express();
+//----------------//
+// Calling helmet //
+//----------------//
+app.use(helmet());
 //----------------------//
 // Import Mongoose      //
 // Connect to Data Base //
