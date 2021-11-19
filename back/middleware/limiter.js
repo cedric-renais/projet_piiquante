@@ -7,9 +7,9 @@ const expressRateLimit = require('express-rate-limit');
 //-----------------------//
 const loginLimiter = expressRateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5,
+  max: 50,
 });
 //-------------------------------//
-// Exports Limiter configuration //
+// Exports limiter configuration //
 //-------------------------------//
 module.exports = { loginLimiter };

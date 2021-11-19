@@ -40,6 +40,7 @@ exports.readSauce = (req, res, next) => {
 // Exports the logic of the PUT route //
 //-------------------------------------//
 exports.updateSauce = (req, res, next) => {
+  // Conditional operator (condition ? If True : If False)
   const sauceObject = req.file
     ? {
         ...JSON.parse(req.body.sauce),

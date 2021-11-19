@@ -39,13 +39,13 @@ mongoose
   })
   .then(() => console.log('Successful connection to MongoDB Atlas.'))
   .catch(() => console.log('Connection to MongoDB Atlas failed.'));
-//---------------------------------------------------------------------//
-//                               CORS                                  //
-//---------------------------------------------------------------------//
-// Allows access to the API from any source                            //
-// Allows you to add the mentioned headers to requests sent to the API //
-// Allows you to send requests with the methods mentioned              //
-//---------------------------------------------------------------------//
+//-----------------------------------------------------------------//
+//                             CORS                                //
+//-----------------------------------------------------------------//
+// Allows access to the API from any source                        //
+// Allows to add the mentioned headers to requests sent to the API //
+// Allows to send requests with the methods mentioned              //
+//-----------------------------------------------------------------//
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
