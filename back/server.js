@@ -3,6 +3,11 @@
 //-----------------//
 const http = require('http');
 const app = require('./app');
+//---------------//
+// Import dotenv //
+//---------------//
+const dotenv = require('dotenv');
+dotenv.config();
 //----------------------------------------------//
 // Returns a valid port as a number or a string //
 //----------------------------------------------//
@@ -16,7 +21,7 @@ const normalizePort = (val) => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT);
 app.set('port', port);
 //----------------------------------------------------------//
 // Find the various errors and deal with them appropriately //

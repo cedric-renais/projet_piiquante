@@ -2,6 +2,15 @@
 // Import Express //
 //----------------//
 const express = require('express');
+//----------------------------------------------------//
+// Import security packages                           //
+// Dotenv for environment variables                   //
+// helmet to appropriately configure the HTTP headers //
+//----------------------------------------------------//
+const dotenv = require('dotenv');
+dotenv.config();
+const helmet = require('helmet');
+app.use(helmet());
 //-------------//
 // Import path //
 //-------------//
@@ -15,19 +24,16 @@ const sauceRoutes = require('./routes/sauce');
 // Calling express //
 //-----------------//
 const app = express();
-//---------------------//
-// Import Mongoose     //
-// Connect to DataBase //
-//---------------------//
+//----------------------//
+// Import Mongoose      //
+// Connect to Data Base //
+//----------------------//
 const mongoose = require('mongoose');
 mongoose
-  .connect(
-    'mongodb+srv://admin:Chapiteau01@cluster0.wbkwd.mongodb.net/hotTakes?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(process.env.MONGO, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log('Successful connection to MongoDB Atlas.'))
   .catch(() => console.log('Connection to MongoDB Atlas failed.'));
 //---------------------------------------------------------------------//
