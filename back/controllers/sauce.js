@@ -37,26 +37,43 @@ exports.readSauce = (req, res, next) => {
     .catch((error) => res.status(404).json({ error }));
 };
 //-------------------------------------//
-// Exports the logic of the PUT route //
+// Exports the logic of the PUT route  //
 //-------------------------------------//
 exports.updateSauce = (req, res, next) => {
-  // Conditional operator (condition ? If True : If False)
-  const sauceObject = req.file
-    ? {
-        ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
-  Sauce.updateOne(
-    { _id: req.params.id },
-    { ...sauceObject, _id: req.params.id }
-  )
-    .then(() =>
-      res.status(200).json({ message: 'Sauce updated successfully.' })
+  if (req.file) {
+    Sauce.findOne({ _id: req.params.id })
+      .then((sauce) => {
+        // Delete the previous image before saving the new one
+        const fileName = sauce.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${fileName}`, () => {
+          const sauceObject = {
+            ...JSON.parse(req.body.sauce),
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${
+              req.file.filename
+            }`,
+          };
+          Sauce.updateOne(
+            { _id: req.params.id },
+            { ...sauceObject, _id: req.params.id }
+          )
+            .then(() =>
+              res.status(200).json({ message: 'Sauce updated successfully.' })
+            )
+            .catch((error) => res.status(400).json({ error }));
+        });
+      })
+      .catch((error) => res.status(500).json({ error }));
+  } else {
+    const sauceObject = { ...req.body };
+    Sauce.updateOne(
+      { _id: req.params.id },
+      { ...sauceObject, _id: req.params.id }
     )
-    .catch((error) => res.status(400).json({ error }));
+      .then(() =>
+        res.status(200).json({ message: 'Sauce updated successfully.' })
+      )
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
 //---------------------------------------//
 // Exports the logic of the DELETE route //

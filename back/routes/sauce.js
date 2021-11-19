@@ -25,8 +25,8 @@ const multer = require('../middleware/multer');
 // Delete //
 //--------//
 router.post('/', auth, multer, sauceCtrl.createSauce);
-router.get('/:id', auth, multer, sauceCtrl.readSauce);
-router.put('/:id', auth, sauceCtrl.updateSauce);
+router.get('/:id', auth, sauceCtrl.readSauce);
+router.put('/:id', auth, multer, sauceCtrl.updateSauce);
 router.delete('/:id', auth, sauceCtrl.deleteSauce);
 //-----------------//
 // Read all Sauces //
